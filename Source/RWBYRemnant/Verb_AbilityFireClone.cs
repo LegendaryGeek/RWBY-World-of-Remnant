@@ -1,4 +1,4 @@
-﻿using AbilityUser;
+﻿using VFECore.Abilities;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -30,7 +30,7 @@ namespace RWBYRemnant
             {
                 for (int i = 0; i < this.TargetsAoE.Count; i++)
                 {
-                    ((Aura_Blake)CasterPawn.TryGetComp<CompAbilityUserAura>().aura).SetClone(RWBYDefOf.Blake_ShadowClone_Fire, 3f, new Color(1f, 0.2f, 0f));
+                    ((Aura_Blake)CasterPawn.TryGetComp<CompAbilitiesAura>().aura).SetClone(RWBYDefOf.Blake_ShadowClone_Fire, 3f, new Color(1f, 0.2f, 0f));
                     bool abilitySucceeded = true;
                     if (abilitySucceeded) flag = true;
                 }

@@ -1,4 +1,4 @@
-﻿using AbilityUser;
+﻿using VFECore.Abilities;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -33,8 +33,8 @@ namespace RWBYRemnant
                     bool abilitySucceeded = true;
                     if (TargetsAoE[i].Thing != null && TargetsAoE[i].Thing is Pawn targetPawn)
                     {
-                        float damageToDeal = ((Aura_Adam)CasterPawn.TryGetComp<CompAbilityUserAura>().aura).absorbedDamage;
-                        if (targetPawn.TryGetComp<CompAbilityUserAura>() is CompAbilityUserAura compAbilityUserAura && targetPawn.TryGetComp<CompAbilityUserAura>().IsInitialized && compAbilityUserAura.aura.currentEnergy > 0f)
+                        float damageToDeal = ((Aura_Adam)CasterPawn.TryGetComp<CompAbilitiesAura>().aura).absorbedDamage;
+                        if (targetPawn.TryGetComp<CompAbilitiesAura>() is CompAbilitiesAura compAbilityUserAura && targetPawn.TryGetComp<CompAbilitiesAura>().IsInitialized && compAbilityUserAura.aura.currentEnergy > 0f)
                         {
                             float damageToDealToAura = 0f;
                             if (compAbilityUserAura.aura.currentEnergy > damageToDeal)
@@ -63,7 +63,7 @@ namespace RWBYRemnant
                         }
                         Projectile projectile = (Projectile)GenSpawn.Spawn(RWBYDefOf.RWBY_Ability_Adam_Projectile, CasterPawn.Position, CasterPawn.Map, WipeMode.Vanish);
                         projectile.Launch(CasterPawn, targetPawn, targetPawn, ProjectileHitFlags.IntendedTarget);
-                        ((Aura_Adam)CasterPawn.TryGetComp<CompAbilityUserAura>().aura).absorbedDamage = 1f;
+                        ((Aura_Adam)CasterPawn.TryGetComp<CompAbilitiesAura>().aura).absorbedDamage = 1f;
                     }
                     else
                     {

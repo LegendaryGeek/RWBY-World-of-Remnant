@@ -1,6 +1,6 @@
 ﻿using Verse;
 using RimWorld;
-using AbilityUser;
+using VFECore.Abilities;
 
 namespace RWBYRemnant
 {

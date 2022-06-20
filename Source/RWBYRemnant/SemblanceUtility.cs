@@ -141,7 +141,7 @@ namespace RWBYRemnant
             if (pawn.WorkTagIsDisabled(semblance.requiredWorkTags)) return false;
             pawn.story.traits.allTraits.RemoveAll(t => t.def.Equals(RWBYDefOf.RWBY_Aura));
             pawn.story.traits.GainTrait(new Trait(semblance));
-            pawn.TryGetComp<CompAbilityUserAura>().Initialize();
+            pawn.TryGetComp<CompAbilitiesAura>().Initialize();
 
             string label = labelKey.Translate().Formatted(pawn.Named("PAWN")).AdjustedFor(pawn, "PAWN").CapitalizeFirst();
             string text = textKey.Translate().Formatted(pawn.Named("PAWN")).AdjustedFor(pawn, "PAWN").CapitalizeFirst();
@@ -156,7 +156,7 @@ namespace RWBYRemnant
             if (pawn.story.traits.HasTrait(RWBYDefOf.RWBY_Aura)) return false;
             if (semblanceList.Any(s => pawn.story.traits.HasTrait(s))) return false;
             pawn.story.traits.GainTrait(new Trait(RWBYDefOf.RWBY_Aura));
-            pawn.TryGetComp<CompAbilityUserAura>().Initialize();
+            pawn.TryGetComp<CompAbilitiesAura>().Initialize();
 
             string label = labelKey.Translate().Formatted(pawn.Named("PAWN")).AdjustedFor(pawn, "PAWN").CapitalizeFirst();
             string text = textKey.Translate().Formatted(pawn.Named("PAWN")).AdjustedFor(pawn, "PAWN").CapitalizeFirst();

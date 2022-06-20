@@ -32,7 +32,7 @@ namespace RWBYRemnant
             {
                 if (pawn.needs.mood.thoughts.memories.Memories.Any(m => SemblanceUtility.unlockSemblanceReasons.Contains(m.def.defName)))
                 {
-                    return pawn.TryGetComp<CompAbilityUserAura>() is CompAbilityUserAura compAbilityUserAura && compAbilityUserAura.TryUnlockSemblanceWith(null, true);
+                    return pawn.TryGetComp<CompAbilitiesAura>() is CompAbilitiesAura compAbilityUserAura && compAbilityUserAura.TryUnlockSemblanceWith(null, true);
                 }
             }
             return false;

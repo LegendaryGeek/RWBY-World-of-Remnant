@@ -35,7 +35,8 @@ namespace RWBYRemnant
         protected override void Impact(Thing hitThing)
         {
             SnowUtility.AddSnowRadial(Position, Map, 2f, 1f);
-            MoteThrown moteThrown = (MoteThrown)ThingMaker.MakeThing(ThingDefOf.Mote_Smoke, null);
+            //MoteThrown moteThrown = (MoteThrown)ThingMaker.MakeThing(ThingDefOf.Mote_Smoke, null);
+            FleckMaker.ThrowSmoke(Position.ToVector3(), Map, Rand.Range(1.5f, 2.5f) * 2);
             moteThrown.Scale = Rand.Range(1.5f, 2.5f) * 2;
             moteThrown.rotationRate = Rand.Range(-30f, 30f);
             moteThrown.exactPosition = Position.ToVector3();

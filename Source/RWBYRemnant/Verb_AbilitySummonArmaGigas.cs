@@ -1,4 +1,4 @@
-﻿using AbilityUser;
+﻿using VFECore.Abilities;
 using RimWorld;
 using Verse;
 
@@ -32,8 +32,8 @@ namespace RWBYRemnant
                     Thing glyph = ThingMaker.MakeThing(RWBYDefOf.Weiss_Glyph_Summon);
                     glyph.TryGetComp<CompGlyphSummon>().SetData(GenTicks.SecondsToTicks(1.5f), RWBYDefOf.Grimm_ArmaGigas_Summoned);
                     GenSpawn.Spawn(glyph, TargetsAoE[i].Cell, caster.Map);
-                    CasterPawn.TryGetComp<CompAbilityUserAura>().AbilityData.AllPowers.Find(a => a.Def == RWBYDefOf.Weiss_SummonArmaGigas).CooldownTicksLeft = 3600;
-                    CasterPawn.TryGetComp<CompAbilityUserAura>().AbilityData.AllPowers.Find(a => a.Def == RWBYDefOf.Weiss_SummonArmaGigasSword).CooldownTicksLeft = 3600;
+                    CasterPawn.TryGetComp<CompAbilitiesAura>().AbilityData.AllPowers.Find(a => a.Def == RWBYDefOf.Weiss_SummonArmaGigas).CooldownTicksLeft = 3600;
+                    CasterPawn.TryGetComp<CompAbilitiesAura>().AbilityData.AllPowers.Find(a => a.Def == RWBYDefOf.Weiss_SummonArmaGigasSword).CooldownTicksLeft = 3600;
                     bool abilitySucceeded = true;
                     if (abilitySucceeded) flag = true;
                 }

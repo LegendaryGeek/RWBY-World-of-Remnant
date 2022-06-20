@@ -10,9 +10,9 @@ namespace RWBYRemnant
         {
             if (pawn.Dead) yield break;
             if (pawn.NonHumanlikeOrWildMan()) yield break;
-            if (pawn.TryGetComp<CompAbilityUserAura>() != null && pawn.TryGetComp<CompAbilityUserAura>().AbilityData != null)
+            if (pawn.TryGetComp<CompAbilitiesAura>() != null && pawn.TryGetComp<CompAbilitiesAura>(). != null)
             {
-                foreach (AbilitySemblance abilitySemblance in pawn.TryGetComp<CompAbilityUserAura>().AbilityData.AllPowers)
+                foreach (AbilitySemblance abilitySemblance in pawn.TryGetComp<CompAbilitiesAura>().AbilityData.AllPowers)
                 {
                     if (abilitySemblance.SemblanceDef.usesAmmunition != null) yield return abilitySemblance.SemblanceDef.usesAmmunition;
                 }

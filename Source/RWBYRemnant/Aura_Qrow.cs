@@ -38,7 +38,7 @@ namespace RWBYRemnant
                     Vector3 loc = (affectedPawn.DrawPos + plant.DrawPos) / 2f;
                     MoteMaker.ThrowText(loc, affectedPawn.Map, "TextMote_HarvestFailed".Translate(), GetColor(), 3.65f);
                     plant.def.plant.soundHarvestFinish.PlayOneShot(affectedPawn);
-                    plant.PlantCollected();
+                    plant.PlantCollected(affectedPawn);
                     FieldInfo fieldInfo = typeof(JobDriver_PlantWork).GetField("workDone", BindingFlags.NonPublic | BindingFlags.Instance);
                     fieldInfo.SetValue((JobDriver_PlantWork)affectedPawn.jobs.curDriver, 0f);
                     affectedPawn.jobs.curDriver.ReadyForNextToil();

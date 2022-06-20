@@ -1,4 +1,4 @@
-﻿using AbilityUser;
+﻿using VFECore.Abilities;
 using RimWorld;
 using Verse;
 
@@ -30,7 +30,7 @@ namespace RWBYRemnant
                 for (int i = 0; i < this.TargetsAoE.Count; i++)
                 {
                     bool abilitySucceeded = true;
-                    if (TargetsAoE[i].Thing != null && TargetsAoE[i].Thing is Pawn targetPawn && CasterPawn.TryGetComp<CompAbilityUserAura>().aura is Aura_Raven aura_Raven)
+                    if (TargetsAoE[i].Thing != null && TargetsAoE[i].Thing is Pawn targetPawn && CasterPawn.TryGetComp<CompAbilitiesAura>().aura is Aura_Raven aura_Raven)
                     {
                         abilitySucceeded = aura_Raven.RegisterBondedPawn(targetPawn);
                     }                    

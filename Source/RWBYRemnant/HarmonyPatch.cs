@@ -47,7 +47,7 @@ namespace RWBYRemnant
         public static void Notify_BillDone_PostFix(Pawn billDoer, List<Thing> products) // unlocks Semblance Crafting Artistic
         {
             if (!LoadedModManager.GetMod<RemnantMod>().GetSettings<RemnantModSettings>().semblanceUnlockable) return;
-            if (billDoer.GetComp<CompAbilityUserAura>() is CompAbilityUserAura compAbilityUserAura && billDoer.story != null && billDoer.story.traits.HasTrait(RWBYDefOf.RWBY_Aura))
+            if (billDoer.GetComp<CompAbilitiesAura>() is CompAbilitiesAura compAbilityUserAura && billDoer.story != null && billDoer.story.traits.HasTrait(RWBYDefOf.RWBY_Aura))
             {
                 for (int i = 0; i < products.Count; i++)
                 {
@@ -72,7 +72,7 @@ namespace RWBYRemnant
         {
             if (!__result) return;
             if (!LoadedModManager.GetMod<RemnantMod>().GetSettings<RemnantModSettings>().semblanceUnlockable) return;
-            if (___pawn.GetComp<CompAbilityUserAura>() is CompAbilityUserAura compAbilityUserAura && ___pawn.story != null && ___pawn.story.traits.HasTrait(RWBYDefOf.RWBY_Aura))
+            if (___pawn.GetComp<CompAbilitiesAura>() is CompAbilitiesAura compAbilityUserAura && ___pawn.story != null && ___pawn.story.traits.HasTrait(RWBYDefOf.RWBY_Aura))
             {
                 if (Rand.Chance(0.001f)) compAbilityUserAura.TryUnlockSemblanceWith(SkillDefOf.Social);
             }
@@ -82,7 +82,7 @@ namespace RWBYRemnant
         public static void StartJob_PostFix(Pawn_JobTracker __instance, Job newJob, Pawn ___pawn) // unlocks Semblance Intellectual
         {
             if (!LoadedModManager.GetMod<RemnantMod>().GetSettings<RemnantModSettings>().semblanceUnlockable) return;
-            if (___pawn.GetComp<CompAbilityUserAura>() is CompAbilityUserAura compAbilityUserAura && ___pawn.story != null && ___pawn.story.traits.HasTrait(RWBYDefOf.RWBY_Aura))
+            if (___pawn.GetComp<CompAbilitiesAura>() is CompAbilitiesAura compAbilityUserAura && ___pawn.story != null && ___pawn.story.traits.HasTrait(RWBYDefOf.RWBY_Aura))
             {
                 if (newJob.def == JobDefOf.Research)
                 {
@@ -95,7 +95,7 @@ namespace RWBYRemnant
         public static void Increment_PostFix(Pawn_RecordsTracker __instance, RecordDef def) // unlocks Semblance Shooting Melee Construction Mining Cooking Plants Animals Medicine
         {
             if (!LoadedModManager.GetMod<RemnantMod>().GetSettings<RemnantModSettings>().semblanceUnlockable) return;
-            if (__instance.pawn.GetComp<CompAbilityUserAura>() is CompAbilityUserAura compAbilityUserAura && __instance.pawn.story != null && __instance.pawn.story.traits.HasTrait(RWBYDefOf.RWBY_Aura))
+            if (__instance.pawn.GetComp<CompAbilitiesAura>() is CompAbilitiesAura compAbilityUserAura && __instance.pawn.story != null && __instance.pawn.story.traits.HasTrait(RWBYDefOf.RWBY_Aura))
             {
                 if (def == RecordDefOf.ShotsFired)
                 {
@@ -266,7 +266,7 @@ namespace RWBYRemnant
         [HarmonyPostfix]
         public static void Notify_PawnKilled_PostFix(Pawn killed, Pawn killer) // add Weiss summon Grimm ability
         {
-            if (killer.RaceProps.Humanlike && killer.story.traits.HasTrait(RWBYDefOf.Semblance_Weiss) && GrimmUtility.IsGrimm(killed) && killer.TryGetComp<CompAbilityUserAura>() is CompAbilityUserAura compAbilityUserAura && compAbilityUserAura.IsInitialized)
+            if (killer.RaceProps.Humanlike && killer.story.traits.HasTrait(RWBYDefOf.Semblance_Weiss) && GrimmUtility.IsGrimm(killed) && killer.TryGetComp<CompAbilitiesAura>() is CompAbilitiesAura compAbilityUserAura && compAbilityUserAura.IsInitialized)
             {
                 if (killed.RaceProps.AnyPawnKind == RWBYDefOf.Grimm_Boarbatusk)
                 {
@@ -324,7 +324,7 @@ namespace RWBYRemnant
         [HarmonyPrefix]
         public static bool AddHediff_PreFix(Hediff hediff, Pawn ___pawn)  // makes Nora immune to RimTasers Reloaded debuff and charges her
         {
-            if (hediff.def.defName.Equals("Tazed") && ___pawn.story != null && ___pawn.story.traits.HasTrait(RWBYDefOf.Semblance_Nora) && ___pawn.TryGetComp<CompAbilityUserAura>() != null && ___pawn.TryGetComp<CompAbilityUserAura>().IsInitialized)
+            if (hediff.def.defName.Equals("Tazed") && ___pawn.story != null && ___pawn.story.traits.HasTrait(RWBYDefOf.Semblance_Nora) && ___pawn.TryGetComp<CompAbilitiesAura>() != null && ___pawn.TryGetComp<CompAbilitiesAura>().IsInitialized)
             {
                 Hediff hediffCharged = new Hediff();
                 hediffCharged = HediffMaker.MakeHediff(RWBYDefOf.RWBY_LightningBuff, ___pawn);
@@ -351,7 +351,7 @@ namespace RWBYRemnant
                 {
                     pawn = pawns.RandomElement();
                     ___strikeLoc = pawn.Position;
-                    if (pawn.TryGetComp<CompAbilityUserAura>().aura is Aura_Nora aura_Nora) aura_Nora.Notify_NextDamageIsLightning();
+                    if (pawn.TryGetComp<CompAbilitiesAura>().aura is Aura_Nora aura_Nora) aura_Nora.Notify_NextDamageIsLightning();
                 }
             }
         }
@@ -372,9 +372,9 @@ namespace RWBYRemnant
                 return;
             }
             if (___pawn.CurJobDef == RWBYDefOf.RWBY_StealAura) ___pawn.jobs.EndCurrentJob(JobCondition.InterruptForced); // makes the Aura steal interruptable
-            if (!absorbed && ___pawn.TryGetComp<CompAbilityUserAura>() != null && ___pawn.TryGetComp<CompAbilityUserAura>().IsInitialized)
+            if (!absorbed && ___pawn.TryGetComp<CompAbilitiesAura>() != null && ___pawn.TryGetComp<CompAbilitiesAura>().IsInitialized)
             {
-                if (___pawn.GetComp<CompAbilityUserAura>().aura.TryAbsorbDamage(dinfo))
+                if (___pawn.GetComp<CompAbilitiesAura>().aura.TryAbsorbDamage(dinfo))
                 {
                     absorbed = true;
                 }
@@ -390,7 +390,7 @@ namespace RWBYRemnant
 
             if (__instance.CasterPawn.health.hediffSet.HasHediff(RWBYDefOf.RWBY_YangReturnDamage)) // add Yang damage
             {
-                CompAbilityUserAura compAbilityUserAura = __instance.CasterPawn.TryGetComp<CompAbilityUserAura>();
+                CompAbilitiesAura compAbilityUserAura = __instance.CasterPawn.TryGetComp<CompAbilitiesAura>();
                 if (compAbilityUserAura == null) return;
                 Aura_Yang aura_Yang = (Aura_Yang)compAbilityUserAura.aura;
                 if (aura_Yang == null) return;
@@ -533,9 +533,9 @@ namespace RWBYRemnant
         {
             if (__instance.def == RWBYDefOf.RWBY_PumpkinPetes && __result != 0)
             {
-                if (ingester.TryGetComp<CompAbilityUserAura>() != null)
+                if (ingester.TryGetComp<CompAbilitiesAura>() != null)
                 {
-                    ingester.TryGetComp<CompAbilityUserAura>().Notify_EatenPumkinPetes();
+                    ingester.TryGetComp<CompAbilitiesAura>().Notify_EatenPumkinPetes();
 
                     if (ingester.story != null && ingester.story.traits.HasTrait(RWBYDefOf.Semblance_Jaune))
                     {

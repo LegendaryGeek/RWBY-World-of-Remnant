@@ -21,7 +21,7 @@ namespace RWBYRemnant
 
         public override void Tick()
         {
-            MoteMaker.ThrowDustPuffThick(Position.ToVector3(), Map, 2, Def.color);
+            FleckMaker.ThrowDustPuffThick(Position.ToVector3(), Map, 2, Def.color);
             base.Tick();
         }
 

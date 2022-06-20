@@ -1,4 +1,4 @@
-﻿using AbilityUser;
+﻿using VFECore.Abilities;
 using RimWorld;
 using Verse;
 
@@ -8,6 +8,7 @@ namespace RWBYRemnant
     {
         protected override bool TryCastShot()
         {
+            
             bool flag = false;
             this.TargetsAoE.Clear();
             this.UpdateTargets();
@@ -30,13 +31,13 @@ namespace RWBYRemnant
                 for (int i = 0; i < this.TargetsAoE.Count; i++)
                 {
                     bool abilitySucceeded = true;
-                    if (TargetsAoE[i].Thing != null && TargetsAoE[i].Thing is Pawn targetPawn && targetPawn.TryGetComp<CompAbilityUserAura>() != null && targetPawn.TryGetComp<CompAbilityUserAura>().IsInitialized)
+                    if (TargetsAoE[i].Thing != null && TargetsAoE[i].Thing is Pawn targetPawn && targetPawn.TryGetComp<CompAbilitiesAura>() != null && targetPawn.TryGetComp<CompAbilitiesAura>().IsInitialized)
                     {
                         Hediff hediffAmplifiedAura = new Hediff();
                         hediffAmplifiedAura = HediffMaker.MakeHediff(RWBYDefOf.RWBY_AmplifiedAura, targetPawn);
                         targetPawn.health.AddHediff(hediffAmplifiedAura);
-                        targetPawn.TryGetComp<CompAbilityUserAura>().aura.currentEnergy += 0.5f;
-                        if (targetPawn.TryGetComp<CompAbilityUserAura>().aura.currentEnergy > targetPawn.TryGetComp<CompAbilityUserAura>().aura.maxEnergy) targetPawn.TryGetComp<CompAbilityUserAura>().aura.currentEnergy = targetPawn.TryGetComp<CompAbilityUserAura>().aura.maxEnergy;
+                        targetPawn.TryGetComp<CompAbilitiesAura>().aura.currentEnergy += 0.5f;
+                        if (targetPawn.TryGetComp<CompAbilitiesAura>().aura.currentEnergy > targetPawn.TryGetComp<CompAbilitiesAura>().aura.maxEnergy) targetPawn.TryGetComp<CompAbilitiesAura>().aura.currentEnergy = targetPawn.TryGetComp<CompAbilitiesAura>().aura.maxEnergy;
                     }
                     else
                     {

@@ -1,36 +1,36 @@
-﻿using AbilityUser;
+﻿using VFECore.Abilities;
 using System.Linq;
 using Verse;
 
 namespace RWBYRemnant
 {
-    class AbilitySemblance : PawnAbility
+    class AbilitySemblance : Ability
     {
         public AbilitySemblance()
         {
         }
 
-        public AbilitySemblance(CompAbilityUser abilityUser) : base(abilityUser)
-        {
+        // public AbilitySemblance(CompAbilities abilityUser) : base(abilityUser)
+        // {
             
-            this.abilityUser = (abilityUser as CompAbilityUserAura);
-        }
+        //     this.abilityUser = (abilityUser as CompAbilitiesAura);
+        // }
 
-        public AbilitySemblance(AbilityData abilityData) : base(abilityData)
-        {
-            this.abilityUser = (abilityData.Pawn.AllComps.FirstOrDefault((ThingComp x) => x.GetType() == abilityData.AbilityClass) as CompAbilityUserAura);
-        }
+        // public AbilitySemblance(AbilityData abilityData) : base(abilityData)
+        // {
+        //     this.abilityUser = (abilityData.Pawn.AllComps.FirstOrDefault((ThingComp x) => x.GetType() == abilityData.AbilityClass) as CompAbilitiesAura);
+        // }
 
-        public AbilitySemblance(Pawn user, SemblanceDef pdef) : base(user, pdef)
-        {
-        }
+        // public AbilitySemblance(Pawn user, SemblanceDef pdef) : base(user, pdef)
+        // {
+        // }
 
-        public CompAbilityUserAura AbilityUserAura
+        public CompAbilitiesAura AbilityUserAura
         {
             get
             {
-                CompAbilityUserAura result;
-                if ((result = (Pawn.GetComp<CompAbilityUserAura>())) != null)
+                CompAbilitiesAura result;
+                if ((result = (base.CasterPawn.GetComp<CompAbilitiesAura>())) != null)
                 {
                     return result;
                 }
@@ -42,7 +42,7 @@ namespace RWBYRemnant
         {
             get
             {
-                return Def as SemblanceDef;
+                return this.def as SemblanceDef;
             }
         }
 
@@ -62,12 +62,13 @@ namespace RWBYRemnant
         //    }
         //}
 
-        public override bool CanCastPowerCheck(AbilityContext context, out string reason)
+        public /*override*/ bool CanCastPowerCheck(/*AbilityContext context, out string reason*/)
         {
-            bool baseResult = base.CanCastPowerCheck(context, out reason);
-            if (baseResult)
-            {
-                if (SemblanceDef.usesAmmunition != null && Pawn.inventory.GetDirectlyHeldThings().ToList().Find(s => s.def == SemblanceDef.usesAmmunition) == null)
+            bool baseResult = true/*= base.CanCastPowerCheck(context, out reason)*/;
+            TaggedString reason;
+            //if (baseResult)
+            //{
+                if (SemblanceDef.usesAmmunition != null && base.CasterPawn.inventory.GetDirectlyHeldThings().ToList().Find(s => s.def == SemblanceDef.usesAmmunition) == null)
                 {
                     baseResult = false;
                     reason = "DisabledNoDustPowderAmmunition".Translate(SemblanceDef.usesAmmunition.label).CapitalizeFirst();
@@ -75,24 +76,24 @@ namespace RWBYRemnant
                 if (SemblanceDef.auraCost > 0f && SemblanceDef.auraCost >= AbilityUserAura.aura.currentEnergy)
                 {
                     baseResult = false;
-                    reason = "DisabledNotEnoughAura".Translate(Pawn.Name.ToStringShort);
+                    reason = "DisabledNotEnoughAura".Translate(base.CasterPawn.Name.ToStringShort);
                 }
-                if (SemblanceDef == RWBYDefOf.Adam_UnleashDamage && Pawn.TryGetComp<CompAbilityUserAura>() is CompAbilityUserAura comp1 && comp1.aura is Aura_Adam aura_Adam && aura_Adam.absorbedDamage == 0)
+                if (SemblanceDef == RWBYDefOf.Adam_UnleashDamage && base.CasterPawn.TryGetComp<CompAbilitiesAura>() is CompAbilitiesAura comp1 && comp1.aura is Aura_Adam aura_Adam && aura_Adam.absorbedDamage == 0)
                 {
                     baseResult = false;
-                    reason = "DisabledNoDamageAbosrbed".Translate(Pawn.Name.ToStringShort);
+                    reason = "DisabledNoDamageAbosrbed".Translate(base.CasterPawn.Name.ToStringShort);
                 }
-                if (SemblanceDef == RWBYDefOf.Adam_UnleashDamage && (Pawn.equipment.Primary == null || !Pawn.equipment.Primary.def.IsMeleeWeapon))
+                if (SemblanceDef == RWBYDefOf.Adam_UnleashDamage && (base.CasterPawn.equipment.Primary == null || !base.CasterPawn.equipment.Primary.def.IsMeleeWeapon))
                 {
                     baseResult = false;
-                    reason = "DisabledNoMeleeWeapon".Translate(Pawn.Name.ToStringShort);
+                    reason = "DisabledNoMeleeWeapon".Translate(base.CasterPawn.Name.ToStringShort);
                 }
-                if (SemblanceDef == RWBYDefOf.Yang_ReturnDamage && Pawn.TryGetComp<CompAbilityUserAura>() is CompAbilityUserAura comp2 && comp2.aura is Aura_Yang aura_Yang && aura_Yang.absorbedDamage == 0)
+                if (SemblanceDef == RWBYDefOf.Yang_ReturnDamage && base.CasterPawn.TryGetComp<CompAbilitiesAura>() is CompAbilitiesAura comp2 && comp2.aura is Aura_Yang aura_Yang && aura_Yang.absorbedDamage == 0)
                 {
                     baseResult = false;
-                    reason = "DisabledNoDamageAbosrbed".Translate(Pawn.Name.ToStringShort);
+                    reason = "DisabledNoDamageAbosrbed".Translate(base.CasterPawn.Name.ToStringShort);
                 }
-            }
+            //}
             return baseResult;
         }
     }

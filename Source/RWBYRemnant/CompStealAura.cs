@@ -58,7 +58,7 @@ namespace RWBYRemnant
         {
             Hediff hediff = GetPawn.health.hediffSet.hediffs.Find(h => h. def == RWBYDefOf.RWBY_AuraStolen);
             if (hediff != null) GetPawn.health.RemoveHediff(hediff);
-            if (stolenTraitDef != null && GetPawn.TryGetComp<CompAbilityUserAura>() is CompAbilityUserAura compAbilityUserAura)
+            if (stolenTraitDef != null && GetPawn.TryGetComp<CompAbilitiesAura>() is CompAbilitiesAura compAbilityUserAura)
             {
                 if (compAbilityUserAura.IsInitialized && GetPawn.story.traits.allTraits.Any(t => SemblanceUtility.semblanceList.Contains(t.def))) // if pawn has Semblance
                 {
@@ -109,7 +109,7 @@ namespace RWBYRemnant
                 {
                     GetPawn.story.traits.allTraits.RemoveAll(t => t.def.Equals(RWBYDefOf.RWBY_Aura));
                     GetPawn.story.traits.GainTrait(new Trait(stolenTraitDef));
-                    GetPawn.TryGetComp<CompAbilityUserAura>().Initialize();
+                    GetPawn.TryGetComp<CompAbilitiesAura>().Initialize();
                     RWBYDefOf.AuraBreak.PlayOneShot(new TargetInfo(GetPawn.Position, GetPawn.Map, false));
                 }
                 parent.Destroy();

@@ -1,30 +1,32 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
 using Verse;
-using AbilityUser;
+using VFECore.Abilities;
 using System.Linq;
 
 namespace RWBYRemnant
 {
-    public class CompAbilityUserAura : CompAbilityUser
+    public class CompAbilitiesAura : CompAbilities
     {
         public Aura aura;
+        public bool IsInitialized = false;
 
         public override void CompTick()
         {
             base.CompTick();
+
             if (Pawn.health.hediffSet.HasHediff(RWBYDefOf.RWBY_AuraStolen)) return;
             if (hiddenSemblance == null) GenerateHiddenSemblance();
-            if (IsInitialized)
+            if(IsInitialized)
             {
-                aura.Tick();
+            aura.Tick();
             }
             else
             {
                 if (auraAutoUnlock >= 0) auraAutoUnlock--;
                 if (auraAutoUnlock == 0)
                 {
-                    SemblanceUtility.UnlockAura(AbilityUser, "LetterTextUnlockAuraAuto");
+                    SemblanceUtility.UnlockAura(Pawn, "LetterTextUnlockAuraAuto");
                 }
             }
         }
@@ -32,7 +34,7 @@ namespace RWBYRemnant
         public override void CompTickRare()
         {
             base.CompTickRare();            
-            if (!Pawn.health.hediffSet.HasHediff(RWBYDefOf.RWBY_SilverEyes) && AbilityData.AllPowers.Any(a => a.Def == RWBYDefOf.Ability_SilverEyes))
+            if (!Pawn.health.hediffSet.HasHediff(RWBYDefOf.RWBY_SilverEyes) && Pawn.AllPowers.Any(a => a.Def == RWBYDefOf.Ability_SilverEyes))
             {
                 RemovePawnAbility(RWBYDefOf.Ability_SilverEyes);
                 Messages.Message("MessageTextLostSilverEyes".Translate().Formatted(Pawn.Named("PAWN")).AdjustedFor(Pawn, "PAWN").CapitalizeFirst(), Pawn, MessageTypeDefOf.NegativeEvent);

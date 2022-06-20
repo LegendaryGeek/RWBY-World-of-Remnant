@@ -1,4 +1,4 @@
-﻿using AbilityUser;
+﻿using VFECore.Abilities;
 using RimWorld;
 using System.Linq;
 using UnityEngine;
@@ -7,13 +7,15 @@ using Verse.Sound;
 
 namespace RWBYRemnant
 {
-    public class Verb_UseAbilitySemblanceBase : Verb_UseAbility
+    public class Verb_UseAbilitySemblanceBase : VFECore.Abilities.Verb_CastAbility
     {
-        public CompAbilityUserAura AbilityUserCompAura
+        public CompAbilitiesAura AbilityUserCompAura
         {
+            
             get
             {
-                return base.CasterPawn.TryGetComp<CompAbilityUserAura>();
+                
+                return base.CasterPawn.TryGetComp<CompAbilitiesAura>();
             }
         }
 
@@ -33,7 +35,7 @@ namespace RWBYRemnant
         protected override bool TryCastShot()
         {
             bool flag = false;
-            this.TargetsAoE.Clear();
+            //this.TargetsAoE.Clear();
             this.UpdateTargets();
             int shotsPerBurst = this.ShotsPerBurst;
             bool flag2 = this.UseAbilityProps.AbilityTargetCategory != AbilityTargetCategory.TargetAoE && this.TargetsAoE.Count > 1;
@@ -120,7 +122,7 @@ namespace RWBYRemnant
                     {
                         projectileHitFlags2 |= ProjectileHitFlags.NonTargetPawns;
                     }
-                    projectile.Launch(caster, drawPos, shootLine.Dest, this.currentTarget, projectileHitFlags2, null, targetCoverDef);
+                    projectile.Launch(caster, drawPos, shootLine.Dest, this.currentTarget, projectileHitFlags2, true, null, targetCoverDef);
                     return true;
                 }
                 if (this.currentTarget.Thing != null && this.currentTarget.Thing.def.category == ThingCategory.Pawn && !Rand.Chance(shotReport.PassCoverChance) && !((VerbProperties_Ability)verbProps).AlwaysHits)
@@ -130,12 +132,12 @@ namespace RWBYRemnant
                     {
                         projectileHitFlags3 |= ProjectileHitFlags.NonTargetPawns;
                     }
-                    projectile.Launch(caster, drawPos, randomCoverToMissInto, this.currentTarget, projectileHitFlags3, null, targetCoverDef);
+                    projectile.Launch(caster, drawPos, randomCoverToMissInto, this.currentTarget, projectileHitFlags3, true, null, targetCoverDef);
                     return true;
                 }
                 // miss chance end
 
-                projectile.Launch(caster, launchTarget, launchTarget, projectileHitFlags, null);
+                projectile.Launch(caster, launchTarget, launchTarget, projectileHitFlags, true, null);
                 result = new bool?(true);
             }
             return result;
@@ -143,7 +145,7 @@ namespace RWBYRemnant
 
         public bool ConsumeAmmunition()
         {
-            SemblanceDef abilityDef_RWBY = ((AbilitySemblance)Ability).SemblanceDef;
+            SemblanceDef abilityDef_RWBY = AbilitySemblance.SemblanceDef;
             Thing thing = CasterPawn.inventory.GetDirectlyHeldThings().ToList().Find(s => s.def == abilityDef_RWBY.usesAmmunition);
             if (abilityDef_RWBY.usesAmmunition == null)
             {

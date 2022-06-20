@@ -47,7 +47,7 @@ namespace RWBYRemnant
             {
                 if (TargetA.Thing is Pawn targetPawn && targetPawn.RaceProps.Humanlike && TargetB.Thing is ThingWithComps glove)
                 {
-                    if (targetPawn.TryGetComp<CompAbilityUserAura>() != null && glove.TryGetComp<CompStealAura>() != null)
+                    if (targetPawn.TryGetComp<CompAbilitiesAura>() != null && glove.TryGetComp<CompStealAura>() != null)
                     {
                         Hediff hediffAuraStolen = new Hediff();
                         hediffAuraStolen = HediffMaker.MakeHediff(RWBYDefOf.RWBY_AuraStolen, targetPawn);

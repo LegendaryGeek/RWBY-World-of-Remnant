@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Verse;
 using Verse.Sound;
+using RWBYRemnant;
 
 namespace RWBYRemnant
 {
@@ -53,7 +54,7 @@ namespace RWBYRemnant
         {
             if (GetPawn() == null) yield break;
             if (!GetPawn().IsColonist) yield break;
-            if (GetPawn().TryGetComp<CompAbilityUserAura>() == null || !GetPawn().TryGetComp<CompAbilityUserAura>().IsInitialized) yield break;
+            if (GetPawn().TryGetComp<CompAbilitiesAura>() == null || !GetPawn().TryGetComp<CompAbilitiesAura>().IsInitialized) yield break;
 
             yield return new Command_Action
             {

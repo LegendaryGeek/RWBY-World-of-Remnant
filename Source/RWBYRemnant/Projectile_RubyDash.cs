@@ -36,7 +36,7 @@ namespace RWBYRemnant
                 launcherPawn.Position = Position;
                 launcherPawn.Notify_Teleported(true, false);
             }
-            MoteMaker.ThrowDustPuffThick(Position.ToVector3(), Map, 2, Def.color);
+           FleckMaker.ThrowDustPuffThick(Position.ToVector3(), Map, 2, Def.color);
             if (Find.TickManager.TicksGame % 2 == 0)
             {
                 if (!Position.ShouldSpawnMotesAt(Map))
